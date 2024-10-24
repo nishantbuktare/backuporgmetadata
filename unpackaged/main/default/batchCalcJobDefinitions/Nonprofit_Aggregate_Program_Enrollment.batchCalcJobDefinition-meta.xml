@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BatchCalcJobDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <description>Aggregates the number of active program enrollees that are grouped by Program ID.</description>
+        <fields>
+            <aggregateFunction>Count</aggregateFunction>
+            <alias>ActiveEnrolleeCount</alias>
+            <sourceFieldName>IsActive</sourceFieldName>
+        </fields>
+        <groupBy>ProgramId</groupBy>
+        <label>Aggregate Active Enrollees by Program ID</label>
+        <name>AggregateActiveEnrolleesByProgramId</name>
+        <sourceName>RetrieveActiveProgramEnrollments</sourceName>
+    </aggregates>
+    <aggregates>
+        <description>Aggregates unique program enrollees that are grouped by Program ID.</description>
+        <fields>
+            <aggregateFunction>Unique</aggregateFunction>
+            <alias>UniqueEnrollees</alias>
+            <sourceFieldName>AccountIdOrContactIdOrProgramEnrollmentId</sourceFieldName>
+        </fields>
+        <groupBy>ProgramId</groupBy>
+        <label>Aggregate Unique Enrollees by Program ID</label>
+        <name>AggregateUniqueEnrolleesByProgramId</name>
+        <sourceName>RetrieveContactIdOrAccountIdOrProgramEnrollmentId</sourceName>
+    </aggregates>
+    <datasources>
+        <description>The Program Enrollment is used as a data source to calculate total program enrollees and active program enrollees.</description>
+        <fields>
+            <alias>AccountId</alias>
+            <dataType>Text</dataType>
+            <name>AccountId</name>
+        </fields>
+        <fields>
+            <alias>ContactId</alias>
+            <dataType>Text</dataType>
+            <name>ContactId</name>
+        </fields>
+        <fields>
+            <alias>IsActive</alias>
+            <dataType>Text</dataType>
+            <name>IsActive</name>
+        </fields>
+        <fields>
+            <alias>ProgramId</alias>
+            <dataType>Text</dataType>
+            <name>ProgramId</name>
+        </fields>
+        <fields>
+            <alias>Status</alias>
+            <dataType>Text</dataType>
+            <name>Status</name>
+        </fields>
+        <fields>
+            <alias>ProgramEnrollmentId</alias>
+            <dataType>Text</dataType>
+            <name>Id</name>
+        </fields>
+        <label>Program Enrollment</label>
+        <name>ProgramEnrollment</name>
+        <sourceName>ProgramEnrollment</sourceName>
+        <type>StandardObject</type>
+    </datasources>
+    <description>Aggregates total program enrollments and active program enrollments across all programs.</description>
+    <executionPlatformType>CRMA</executionPlatformType>
+    <filters>
+        <criteria>
+            <operator>Equals</operator>
+            <sequence>1</sequence>
+            <sourceFieldName>IsActive</sourceFieldName>
+            <value>true</value>
+        </criteria>
+        <description>Retrieves active program enrollment records.</description>
+        <filterCondition>1</filterCondition>
+        <isDynamicFilter>false</isDynamicFilter>
+        <label>Retrieve Active Program Enrollments</label>
+        <name>RetrieveActiveProgramEnrollments</name>
+        <sourceName>ProgramEnrollment</sourceName>
+    </filters>
+    <isTemplate>false</isTemplate>
+    <label>Nonprofit_Aggregate Program Enrollment</label>
+    <processType>ProgramManagementRollups</processType>
+    <status>Active</status>
+    <transforms>
+        <description>Identifies whether Contact ID or Account ID from the program enrollment record is null.</description>
+        <expressionFields>
+            <alias>IsAccountNull</alias>
+            <dataType>Text</dataType>
+            <expression>ISNULL({AccountId} )</expression>
+            <length>10</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>IsContactNull</alias>
+            <dataType>Text</dataType>
+            <expression>ISNULL({ContactId})</expression>
+            <length>10</length>
+        </expressionFields>
+        <label>Identify Not Null Contact ID or Account ID from Program Enrollment</label>
+        <name>IdentifyNotNullContactIdOrAccountIdFromProgramEnrollment</name>
+        <sourceName>ProgramEnrollment</sourceName>
+        <transformationType>Expression</transformationType>
+    </transforms>
+    <transforms>
+        <description>Retrieves either Account ID or Program Enrollment ID from the program enrollment record.</description>
+        <expressionFields>
+            <alias>AccountIdOrProgramEnrolleeId</alias>
+            <dataType>Text</dataType>
+            <expression>IF({IsAccountNull} == &quot;true&quot;, {ProgramEnrollmentId}, {AccountId})</expression>
+            <length>255</length>
+        </expressionFields>
+        <label>Retrieve Account ID or Program Enrollment ID from Program Enrollment</label>
+        <name>RetrieveAccountIdOrProgramEnrollmentIdFromProgramEnrollment</name>
+        <sourceName>IdentifyNotNullContactIdOrAccountIdFromProgramEnrollment</sourceName>
+        <transformationType>Expression</transformationType>
+    </transforms>
+    <transforms>
+        <description>Retrieves either Contact ID, Account ID, or Program Enrollment ID from the program enrollment record.</description>
+        <expressionFields>
+            <alias>AccountIdOrContactIdOrProgramEnrollmentId</alias>
+            <dataType>Text</dataType>
+            <expression>IF({IsContactNull}  == &quot;true&quot;, {AccountIdOrProgramEnrolleeId}, {ContactId})</expression>
+            <length>255</length>
+        </expressionFields>
+        <label>Retrieve Contact ID or Account ID or Program Enrollment ID</label>
+        <name>RetrieveContactIdOrAccountIdOrProgramEnrollmentId</name>
+        <sourceName>RetrieveAccountIdOrProgramEnrollmentIdFromProgramEnrollment</sourceName>
+        <transformationType>Expression</transformationType>
+    </transforms>
+    <writebacks>
+        <description>Updates the program record with the count of active program enrollment records.</description>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>ActiveEnrolleeCount</sourceFieldName>
+            <targetFieldName>ActiveEnrolleeCount</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>ProgramId</sourceFieldName>
+            <targetFieldName>Id</targetFieldName>
+        </fields>
+        <isChangedRow>false</isChangedRow>
+        <label>Update Program with Active Program Enrollment Count</label>
+        <name>UpdateProgramWithActiveProgramEnrollmentCount</name>
+        <operationType>Update</operationType>
+        <sourceName>AggregateActiveEnrolleesByProgramId</sourceName>
+        <storageType>sObject</storageType>
+        <targetObjectName>Program</targetObjectName>
+        <writebackSequence>1</writebackSequence>
+        <writebackUser>005dN000002IjK6QAK</writebackUser>
+    </writebacks>
+    <writebacks>
+        <description>Updates the program record with the count of total program enrollment records.</description>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>UniqueEnrollees</sourceFieldName>
+            <targetFieldName>TotalEnrolleeCount</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>ProgramId</sourceFieldName>
+            <targetFieldName>Id</targetFieldName>
+        </fields>
+        <isChangedRow>false</isChangedRow>
+        <label>Update Program with Total Program Enrollment Count</label>
+        <name>UpdateProgramWithTotalProgramEnrollmentCount</name>
+        <operationType>Update</operationType>
+        <sourceName>AggregateUniqueEnrolleesByProgramId</sourceName>
+        <storageType>sObject</storageType>
+        <targetObjectName>Program</targetObjectName>
+        <writebackSequence>2</writebackSequence>
+        <writebackUser>005dN000002IjK6QAK</writebackUser>
+    </writebacks>
+</BatchCalcJobDefinition>

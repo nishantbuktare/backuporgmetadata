@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BatchCalcJobDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <description>Calculates total benefit assignments grouped by benefit IDs for different periods.</description>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>BenefitCurrentYearAssignedQuantity</alias>
+            <sourceFieldName>CurrentYearEnrollmentCount</sourceFieldName>
+        </fields>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>BenefitPreviousYearAssignedQuantity</alias>
+            <sourceFieldName>PreviousYearEnrollmentCount</sourceFieldName>
+        </fields>
+        <groupBy>BenefitId</groupBy>
+        <label>Calculate Total Benefit Assignments By Benefit ID</label>
+        <name>CalculateTotalBenefitAssignmentsByBenefitId</name>
+        <sourceName>IdentifyBenefitAssignmentsForDifferentPeriods</sourceName>
+    </aggregates>
+    <aggregates>
+        <description>Calculates total disbursed benefits grouped by benefit IDs for different periods.</description>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>CurrentMonthDisbursedQuantity</alias>
+            <sourceFieldName>CurrentMonthBenefitDisbursementQuantity</sourceFieldName>
+        </fields>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>CurrentYearDisbursedQuantity</alias>
+            <sourceFieldName>CurrentYearBenefitDisbursementQuantity</sourceFieldName>
+        </fields>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>PreviousMonthDisbursedQuantity</alias>
+            <sourceFieldName>PreviousMonthBenefitDisbursementQuantity</sourceFieldName>
+        </fields>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>PreviousYearDisbursedQuantity</alias>
+            <sourceFieldName>PreviousYearBenefitDisbursementQuantity</sourceFieldName>
+        </fields>
+        <groupBy>BenefitId</groupBy>
+        <label>Calculate Total Disbursed Benefits By Benefit ID</label>
+        <name>CalculateTotalDisbursedBenefitsByBenefitId</name>
+        <sourceName>IdentityDisbursedQuantityForBenefitAssignmentsInDifferentPeriods</sourceName>
+    </aggregates>
+    <aggregates>
+        <description>Calculates total disbursed benefits grouped by program enrollment IDs for different periods.</description>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>ProgramEnrolleeCurrentMonthDisbursedCount</alias>
+            <sourceFieldName>IsBenefitDisbursementCompletedInCurrentMonth</sourceFieldName>
+        </fields>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>ProgramEnrolleeCurrentYearDisbursedCount</alias>
+            <sourceFieldName>IsBenefitDisbursementCompletedInCurrentYear</sourceFieldName>
+        </fields>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>ProgramEnrolleePreviousMonthDisbursedCount</alias>
+            <sourceFieldName>IsBenefitDisbursementCompletedInPreviousMonth</sourceFieldName>
+        </fields>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>ProgramEnrolleePreviousYearDisbursedCount</alias>
+            <sourceFieldName>IsBenefitDisbursementCompletedInPreviousYear</sourceFieldName>
+        </fields>
+        <groupBy>ProgramEnrollmentId</groupBy>
+        <label>Calculate Total Disbursed Benefits By Program Enrollment</label>
+        <name>CalculateTotalDisbursedBenefitsByProgramEnrollment</name>
+        <sourceName>IdentifyCompletedBenefitDisbursementsForDifferentPeriods</sourceName>
+    </aggregates>
+    <aggregates>
+        <description>Calculates total disbursed benefits grouped by program IDs for different periods.</description>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>ProgramCurrentMonthDisbursedCount</alias>
+            <sourceFieldName>IsBenefitDisbursementCompletedInCurrentMonth</sourceFieldName>
+        </fields>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>ProgramCurrentYearDisbursedCount</alias>
+            <sourceFieldName>IsBenefitDisbursementCompletedInCurrentYear</sourceFieldName>
+        </fields>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>ProgramPreviousMonthDisbursedCount</alias>
+            <sourceFieldName>IsBenefitDisbursementCompletedInPreviousMonth</sourceFieldName>
+        </fields>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>ProgramPreviousYearDisbursedCount</alias>
+            <sourceFieldName>IsBenefitDisbursementCompletedInPreviousYear</sourceFieldName>
+        </fields>
+        <groupBy>ProgramId</groupBy>
+        <label>Calculate Total Disbursed Benefits By Program ID</label>
+        <name>CalculateTotalDisbursedBenefitsByProgramId</name>
+        <sourceName>IdentifyCompletedBenefitDisbursementsForDifferentPeriods</sourceName>
+    </aggregates>
+    <datasources>
+        <description>The Benefit Assignment is used as a data source to retrieve the enrollment count on benefit.</description>
+        <fields>
+            <alias>BA_Status</alias>
+            <dataType>Text</dataType>
+            <name>Status</name>
+        </fields>
+        <fields>
+            <alias>EnrollmentCount</alias>
+            <dataType>Numeric</dataType>
+            <name>EnrollmentCount</name>
+        </fields>
+        <fields>
+            <alias>CreatedDate</alias>
+            <dataType>DateTime</dataType>
+            <name>CreatedDate</name>
+        </fields>
+        <fields>
+            <alias>BenefitId</alias>
+            <dataType>Text</dataType>
+            <name>BenefitId</name>
+        </fields>
+        <fields>
+            <alias>BenefitAssignmentId</alias>
+            <dataType>Text</dataType>
+            <name>Id</name>
+        </fields>
+        <fields>
+            <alias>BA_ProgramEnrollmentId</alias>
+            <dataType>Text</dataType>
+            <name>ProgramEnrollmentId</name>
+        </fields>
+        <label>Benefit Assignment</label>
+        <name>BenefitAssignment</name>
+        <sourceName>BenefitAssignment</sourceName>
+        <type>StandardObject</type>
+    </datasources>
+    <datasources>
+        <description>The Benefit Disbursement is used as a data source to aggregate count of program, program enrollment, and benefit records.</description>
+        <fields>
+            <alias>ActualCompletionDate</alias>
+            <dataType>DateTime</dataType>
+            <name>ActualCompletionDate</name>
+        </fields>
+        <fields>
+            <alias>BD_BenefitAssignmentId</alias>
+            <dataType>Text</dataType>
+            <name>BenefitAssignmentId</name>
+        </fields>
+        <fields>
+            <alias>DisbursedQuantity</alias>
+            <dataType>Numeric</dataType>
+            <name>DisbursedQuantity</name>
+        </fields>
+        <fields>
+            <alias>DisbursementStatus</alias>
+            <dataType>Text</dataType>
+            <name>DisbursementStatus</name>
+        </fields>
+        <label>Benefit Disbursement</label>
+        <name>BenefitDisbursement</name>
+        <sourceName>BenefitDisbursement</sourceName>
+        <type>StandardObject</type>
+    </datasources>
+    <datasources>
+        <description>The Program Enrollment is used as a data source to aggregate count of program and program enrollment records.</description>
+        <fields>
+            <alias>ProgramEnrollmentId</alias>
+            <dataType>Text</dataType>
+            <name>Id</name>
+        </fields>
+        <fields>
+            <alias>ProgramId</alias>
+            <dataType>Text</dataType>
+            <name>ProgramId</name>
+        </fields>
+        <fields>
+            <alias>ProgramEnrollmentStatus</alias>
+            <dataType>Text</dataType>
+            <name>Status</name>
+        </fields>
+        <label>Program Enrollment</label>
+        <name>ProgramEnrollment</name>
+        <sourceName>ProgramEnrollment</sourceName>
+        <type>StandardObject</type>
+    </datasources>
+    <description>Aggregates the count of benefit assignments and benefit disbursements for current year and previous years.</description>
+    <executionPlatformType>CRMA</executionPlatformType>
+    <filters>
+        <criteria>
+            <inputVariable>Previous_Year_Start_Date</inputVariable>
+            <operator>GreaterThanOrEquals</operator>
+            <sequence>1</sequence>
+            <sourceFieldName>BenefitAssignmentCreateDateTransformed</sourceFieldName>
+        </criteria>
+        <criteria>
+            <operator>Equals</operator>
+            <sequence>2</sequence>
+            <sourceFieldName>BA_Status</sourceFieldName>
+            <value>Enrolled</value>
+        </criteria>
+        <description>Retrieves benefit assignment records grouped by previous year start date and enrolled status.</description>
+        <filterCondition>1 AND 2</filterCondition>
+        <isDynamicFilter>false</isDynamicFilter>
+        <label>Retrieve Benefit Assignments</label>
+        <name>RetrieveBenefitAssignments</name>
+        <sourceName>TransformBenefitAssignmentFields</sourceName>
+    </filters>
+    <filters>
+        <criteria>
+            <operator>Equals</operator>
+            <sequence>1</sequence>
+            <sourceFieldName>DisbursementStatus</sourceFieldName>
+            <value>Completed</value>
+        </criteria>
+        <criteria>
+            <inputVariable>Previous_Year_Start_Date</inputVariable>
+            <operator>GreaterThanOrEquals</operator>
+            <sequence>2</sequence>
+            <sourceFieldName>ActualCompletionDateOnly</sourceFieldName>
+        </criteria>
+        <description>Retrieves benefit disbursement records grouped by previous year start date and enrolled status.</description>
+        <filterCondition>1 AND 2</filterCondition>
+        <isDynamicFilter>false</isDynamicFilter>
+        <label>Retrieve Benefit Disbursements</label>
+        <name>RetrieveBenefitDisbursements</name>
+        <sourceName>TransformBenefitDisbursementFields</sourceName>
+    </filters>
+    <isTemplate>false</isTemplate>
+    <joins>
+        <description>Gets benefit assignment records for each valid benefit disbursement record.</description>
+        <fields>
+            <alias>ActualCompletionDateOnly</alias>
+            <sourceFieldName>ActualCompletionDateOnly</sourceFieldName>
+            <sourceName>RetrieveBenefitDisbursements</sourceName>
+        </fields>
+        <fields>
+            <alias>BA_ProgramEnrollmentId</alias>
+            <sourceFieldName>BA_ProgramEnrollmentId</sourceFieldName>
+            <sourceName>BenefitAssignment</sourceName>
+        </fields>
+        <fields>
+            <alias>BA_Status</alias>
+            <sourceFieldName>BA_Status</sourceFieldName>
+            <sourceName>BenefitAssignment</sourceName>
+        </fields>
+        <fields>
+            <alias>BD_BenefitAssignmentId</alias>
+            <sourceFieldName>BD_BenefitAssignmentId</sourceFieldName>
+            <sourceName>RetrieveBenefitDisbursements</sourceName>
+        </fields>
+        <fields>
+            <alias>BenefitAssignmentId</alias>
+            <sourceFieldName>BenefitAssignmentId</sourceFieldName>
+            <sourceName>BenefitAssignment</sourceName>
+        </fields>
+        <fields>
+            <alias>BenefitDisbursementQuantityTransformed</alias>
+            <sourceFieldName>BenefitDisbursementQuantityTransformed</sourceFieldName>
+            <sourceName>RetrieveBenefitDisbursements</sourceName>
+        </fields>
+        <fields>
+            <alias>BenefitId</alias>
+            <sourceFieldName>BenefitId</sourceFieldName>
+            <sourceName>BenefitAssignment</sourceName>
+        </fields>
+        <fields>
+            <alias>DisbursedQuantity</alias>
+            <sourceFieldName>DisbursedQuantity</sourceFieldName>
+            <sourceName>RetrieveBenefitDisbursements</sourceName>
+        </fields>
+        <fields>
+            <alias>DisbursementStatus</alias>
+            <sourceFieldName>DisbursementStatus</sourceFieldName>
+            <sourceName>RetrieveBenefitDisbursements</sourceName>
+        </fields>
+        <fields>
+            <alias>EnrollmentCount</alias>
+            <sourceFieldName>EnrollmentCount</sourceFieldName>
+            <sourceName>BenefitAssignment</sourceName>
+        </fields>
+        <joinKeys>
+            <primarySourceFieldName>BD_BenefitAssignmentId</primarySourceFieldName>
+            <secondarySourceFieldName>BenefitAssignmentId</secondarySourceFieldName>
+        </joinKeys>
+        <label>Get Benefit Assignment and Benefit Disbursement</label>
+        <name>GetBenefitAssignmentAndBenefitDisbursement</name>
+        <primarySourceName>RetrieveBenefitDisbursements</primarySourceName>
+        <secondarySourceName>BenefitAssignment</secondarySourceName>
+        <type>Inner</type>
+    </joins>
+    <joins>
+        <description>Gets program enrollee and benefit assignee records for each valid benefit disbursement record.</description>
+        <fields>
+            <alias>ActualCompletionDateOnly</alias>
+            <sourceFieldName>ActualCompletionDateOnly</sourceFieldName>
+            <sourceName>GetBenefitAssignmentAndBenefitDisbursement</sourceName>
+        </fields>
+        <fields>
+            <alias>BA_ProgramEnrollmentId</alias>
+            <sourceFieldName>BA_ProgramEnrollmentId</sourceFieldName>
+            <sourceName>GetBenefitAssignmentAndBenefitDisbursement</sourceName>
+        </fields>
+        <fields>
+            <alias>BA_Status</alias>
+            <sourceFieldName>BA_Status</sourceFieldName>
+            <sourceName>GetBenefitAssignmentAndBenefitDisbursement</sourceName>
+        </fields>
+        <fields>
+            <alias>BD_BenefitAssignmentId</alias>
+            <sourceFieldName>BD_BenefitAssignmentId</sourceFieldName>
+            <sourceName>GetBenefitAssignmentAndBenefitDisbursement</sourceName>
+        </fields>
+        <fields>
+            <alias>BenefitAssignmentId</alias>
+            <sourceFieldName>BenefitAssignmentId</sourceFieldName>
+            <sourceName>GetBenefitAssignmentAndBenefitDisbursement</sourceName>
+        </fields>
+        <fields>
+            <alias>BenefitDisbursementQuantityTransformed</alias>
+            <sourceFieldName>BenefitDisbursementQuantityTransformed</sourceFieldName>
+            <sourceName>GetBenefitAssignmentAndBenefitDisbursement</sourceName>
+        </fields>
+        <fields>
+            <alias>BenefitId</alias>
+            <sourceFieldName>BenefitId</sourceFieldName>
+            <sourceName>GetBenefitAssignmentAndBenefitDisbursement</sourceName>
+        </fields>
+        <fields>
+            <alias>DisbursedQuantity</alias>
+            <sourceFieldName>DisbursedQuantity</sourceFieldName>
+            <sourceName>GetBenefitAssignmentAndBenefitDisbursement</sourceName>
+        </fields>
+        <fields>
+            <alias>DisbursementStatus</alias>
+            <sourceFieldName>DisbursementStatus</sourceFieldName>
+            <sourceName>GetBenefitAssignmentAndBenefitDisbursement</sourceName>
+        </fields>
+        <fields>
+            <alias>EnrollmentCount</alias>
+            <sourceFieldName>EnrollmentCount</sourceFieldName>
+            <sourceName>GetBenefitAssignmentAndBenefitDisbursement</sourceName>
+        </fields>
+        <fields>
+            <alias>ProgramEnrollmentId</alias>
+            <sourceFieldName>ProgramEnrollmentId</sourceFieldName>
+            <sourceName>ProgramEnrollment</sourceName>
+        </fields>
+        <fields>
+            <alias>ProgramEnrollmentStatus</alias>
+            <sourceFieldName>ProgramEnrollmentStatus</sourceFieldName>
+            <sourceName>ProgramEnrollment</sourceName>
+        </fields>
+        <fields>
+            <alias>ProgramId</alias>
+            <sourceFieldName>ProgramId</sourceFieldName>
+            <sourceName>ProgramEnrollment</sourceName>
+        </fields>
+        <joinKeys>
+            <primarySourceFieldName>BA_ProgramEnrollmentId</primarySourceFieldName>
+            <secondarySourceFieldName>ProgramEnrollmentId</secondarySourceFieldName>
+        </joinKeys>
+        <label>Get Program Enrollment and Benefit Assignment with Benefit Disbursement</label>
+        <name>GetProgramEnrollmentAndBenefitAssignmentWithBenefitDisbursement</name>
+        <primarySourceName>GetBenefitAssignmentAndBenefitDisbursement</primarySourceName>
+        <secondarySourceName>ProgramEnrollment</secondarySourceName>
+        <type>Inner</type>
+    </joins>
+    <label>Nonprofit_Aggregate Benefit Assignment and Benefit Disbursement</label>
+    <parameters>
+        <dataType>Date</dataType>
+        <description>Today&#39;s Date</description>
+        <isMultiValue>false</isMultiValue>
+        <label>Current Date</label>
+        <name>Current_Date</name>
+    </parameters>
+    <parameters>
+        <dataType>Date</dataType>
+        <description>Current Month Start Date</description>
+        <isMultiValue>false</isMultiValue>
+        <label>Current Month Start Date</label>
+        <name>Current_Month_Start_Date</name>
+    </parameters>
+    <parameters>
+        <dataType>Date</dataType>
+        <description>Current Year Start Date</description>
+        <isMultiValue>false</isMultiValue>
+        <label>Current Year Start Date</label>
+        <name>Current_Year_Start_Date</name>
+    </parameters>
+    <parameters>
+        <dataType>Date</dataType>
+        <description>Previous Month Start Date</description>
+        <isMultiValue>false</isMultiValue>
+        <label>Previous Month Start Date</label>
+        <name>Previous_Month_Start_Date</name>
+    </parameters>
+    <parameters>
+        <dataType>Date</dataType>
+        <description>Previous Year Start Date</description>
+        <isMultiValue>false</isMultiValue>
+        <label>Previous Year Start Date</label>
+        <name>Previous_Year_Start_Date</name>
+    </parameters>
+    <processType>ProgramManagementRollups</processType>
+    <status>Active</status>
+    <transforms>
+        <description>Identifies benefit assignment records that are created in different periods.</description>
+        <expressionFields>
+            <alias>CurrentYearEnrollmentCount</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <expression>IF({BenefitAssignmentCreateDateTransformed} &gt;= {$Current_Year_Start_Date}  &amp;&amp; {BenefitAssignmentCreateDateTransformed} &lt;= {$Current_Date} ,{EnrollmentCountTransformed}  , 0)</expression>
+            <length>16</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>PreviousYearEnrollmentCount</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <expression>IF({BenefitAssignmentCreateDateTransformed} &gt;= {$Previous_Year_Start_Date}  &amp;&amp; {BenefitAssignmentCreateDateTransformed} &lt; {$Current_Year_Start_Date}  ,{EnrollmentCountTransformed} , 0)</expression>
+            <length>16</length>
+        </expressionFields>
+        <label>Identify Benefit Assignments for Different Periods</label>
+        <name>IdentifyBenefitAssignmentsForDifferentPeriods</name>
+        <sourceName>RetrieveBenefitAssignments</sourceName>
+        <transformationType>Expression</transformationType>
+    </transforms>
+    <transforms>
+        <description>Identifies benefit disbursement records completed in different periods.</description>
+        <expressionFields>
+            <alias>IsBenefitDisbursementCompletedInCurrentMonth</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>0</decimalPlaces>
+            <expression>IF({ActualCompletionDateOnly}  &gt;= {$Current_Month_Start_Date}   &amp;&amp;  {ActualCompletionDateOnly}  &lt;= {$Current_Date} , 1, 0)</expression>
+            <length>1</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>IsBenefitDisbursementCompletedInCurrentYear</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>0</decimalPlaces>
+            <expression>IF({ActualCompletionDateOnly} &gt;=   {$Current_Year_Start_Date}  &amp;&amp; {ActualCompletionDateOnly}  &lt;=  {$Current_Date}  , 1, 0)</expression>
+            <length>1</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>IsBenefitDisbursementCompletedInPreviousMonth</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>0</decimalPlaces>
+            <expression>IF({ActualCompletionDateOnly} &gt;= {$Previous_Month_Start_Date}  &amp;&amp;  {ActualCompletionDateOnly}  &lt; {$Current_Month_Start_Date}  , 1, 0)</expression>
+            <length>1</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>IsBenefitDisbursementCompletedInPreviousYear</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>0</decimalPlaces>
+            <expression>IF({ActualCompletionDateOnly} &gt;=   {$Previous_Year_Start_Date}   &amp;&amp;  {ActualCompletionDateOnly} &lt; {$Current_Year_Start_Date}, 1, 0)</expression>
+            <length>1</length>
+        </expressionFields>
+        <label>Identify Completed Benefit Disbursements for Different Periods</label>
+        <name>IdentifyCompletedBenefitDisbursementsForDifferentPeriods</name>
+        <sourceName>GetProgramEnrollmentAndBenefitAssignmentWithBenefitDisbursement</sourceName>
+        <transformationType>Expression</transformationType>
+    </transforms>
+    <transforms>
+        <description>Identifies disbursed quantity for benefit assignments that are created in different periods.</description>
+        <expressionFields>
+            <alias>CurrentMonthBenefitDisbursementQuantity</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <expression>IF({IsBenefitDisbursementCompletedInCurrentMonth} == 1, {DisbursedQuantity} , 0)</expression>
+            <length>16</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>CurrentYearBenefitDisbursementQuantity</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <expression>IF({IsBenefitDisbursementCompletedInCurrentYear}   == 1, {DisbursedQuantity} , 0)</expression>
+            <length>16</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>PreviousMonthBenefitDisbursementQuantity</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <expression>IF({IsBenefitDisbursementCompletedInPreviousMonth}  == 1, {BenefitDisbursementQuantityTransformed}  , 0)</expression>
+            <length>16</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>PreviousYearBenefitDisbursementQuantity</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <expression>IF({IsBenefitDisbursementCompletedInPreviousYear} == 1, {BenefitDisbursementQuantityTransformed} , 0)</expression>
+            <length>16</length>
+        </expressionFields>
+        <label>Identity Disbursed Quantity for Benefit Assignments in Different Periods</label>
+        <name>IdentityDisbursedQuantityForBenefitAssignmentsInDifferentPeriods</name>
+        <sourceName>IdentifyCompletedBenefitDisbursementsForDifferentPeriods</sourceName>
+        <transformationType>Expression</transformationType>
+    </transforms>
+    <transforms>
+        <description>Transforms created date and enrollment count for benefit assignment records.</description>
+        <expressionFields>
+            <alias>BenefitAssignmentCreateDateTransformed</alias>
+            <dataType>Date</dataType>
+            <expression>DATEVALUE({CreatedDate} )</expression>
+        </expressionFields>
+        <expressionFields>
+            <alias>EnrollmentCountTransformed</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <expression>IF({EnrollmentCount} &gt; 0, {EnrollmentCount}, 0)</expression>
+            <length>16</length>
+        </expressionFields>
+        <label>Transform Benefit Assignment Fields</label>
+        <name>TransformBenefitAssignmentFields</name>
+        <sourceName>BenefitAssignment</sourceName>
+        <transformationType>Expression</transformationType>
+    </transforms>
+    <transforms>
+        <description>Transforms actual completion date and disbursed quantity for benefit disbursement records.</description>
+        <expressionFields>
+            <alias>ActualCompletionDateOnly</alias>
+            <dataType>Date</dataType>
+            <expression>DATEVALUE({ActualCompletionDate})</expression>
+        </expressionFields>
+        <expressionFields>
+            <alias>BenefitDisbursementQuantityTransformed</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <expression>IF({DisbursedQuantity} &gt; 0, {DisbursedQuantity}, 0)</expression>
+            <length>16</length>
+        </expressionFields>
+        <label>Transform Benefit Disbursement Fields</label>
+        <name>TransformBenefitDisbursementFields</name>
+        <sourceName>BenefitDisbursement</sourceName>
+        <transformationType>Expression</transformationType>
+    </transforms>
+    <writebacks>
+        <description>Updates the benefit record with the count of assigned quantity on current year and previous year.</description>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>BenefitId</sourceFieldName>
+            <targetFieldName>Id</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>BenefitCurrentYearAssignedQuantity</sourceFieldName>
+            <targetFieldName>CurrentYearAssignedQty</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>BenefitPreviousYearAssignedQuantity</sourceFieldName>
+            <targetFieldName>PreviousYearAssignedQty</targetFieldName>
+        </fields>
+        <isChangedRow>false</isChangedRow>
+        <label>Update Benefit with Benefit Assignment Count</label>
+        <name>UpdateBenefitWithBenefitAssignmentCount</name>
+        <operationType>Update</operationType>
+        <sourceName>CalculateTotalBenefitAssignmentsByBenefitId</sourceName>
+        <storageType>sObject</storageType>
+        <targetObjectName>Benefit</targetObjectName>
+        <writebackSequence>4</writebackSequence>
+        <writebackUser>005dN000002IjK6QAK</writebackUser>
+    </writebacks>
+    <writebacks>
+        <description>Updates the benefit record with the disbursed quantity on current year, previous year, current month, and previous month.</description>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>PreviousYearDisbursedQuantity</sourceFieldName>
+            <targetFieldName>PreviousYearDisbursedQty</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>BenefitId</sourceFieldName>
+            <targetFieldName>Id</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>CurrentMonthDisbursedQuantity</sourceFieldName>
+            <targetFieldName>CurrentMonthDisbursedQty</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>PreviousMonthDisbursedQuantity</sourceFieldName>
+            <targetFieldName>PreviousMonthDisbursedQty</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>CurrentYearDisbursedQuantity</sourceFieldName>
+            <targetFieldName>CurrentYearDisbursedQty</targetFieldName>
+        </fields>
+        <isChangedRow>false</isChangedRow>
+        <label>Update Benefit with Benefit Disbursement Quantity</label>
+        <name>UpdateBenefitWithBenefitDisbursementQuantity</name>
+        <operationType>Update</operationType>
+        <sourceName>CalculateTotalDisbursedBenefitsByBenefitId</sourceName>
+        <storageType>sObject</storageType>
+        <targetObjectName>Benefit</targetObjectName>
+        <writebackSequence>3</writebackSequence>
+        <writebackUser>005dN000002IjK6QAK</writebackUser>
+    </writebacks>
+    <writebacks>
+        <description>Updates the program enrollment record with the benefit disbursements on current year, previous year, current month, and previous month.</description>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>ProgramEnrollmentId</sourceFieldName>
+            <targetFieldName>Id</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>ProgramEnrolleeCurrentMonthDisbursedCount</sourceFieldName>
+            <targetFieldName>CurrentMonthDisbCount</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>ProgramEnrolleePreviousMonthDisbursedCount</sourceFieldName>
+            <targetFieldName>PreviousMonthDisbCount</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>ProgramEnrolleeCurrentYearDisbursedCount</sourceFieldName>
+            <targetFieldName>CurrentYearDisbCount</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>ProgramEnrolleePreviousYearDisbursedCount</sourceFieldName>
+            <targetFieldName>PreviousYearDisbCount</targetFieldName>
+        </fields>
+        <isChangedRow>false</isChangedRow>
+        <label>Update Program Enrollment</label>
+        <name>UpdateProgramEnrollment</name>
+        <operationType>Update</operationType>
+        <sourceName>CalculateTotalDisbursedBenefitsByProgramEnrollment</sourceName>
+        <storageType>sObject</storageType>
+        <targetObjectName>ProgramEnrollment</targetObjectName>
+        <writebackSequence>2</writebackSequence>
+        <writebackUser>005dN000002IjK6QAK</writebackUser>
+    </writebacks>
+    <writebacks>
+        <description>Updates the program record with the benefit disbursements on current year, previous year, current month, and previous month.</description>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>ProgramId</sourceFieldName>
+            <targetFieldName>Id</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>ProgramCurrentMonthDisbursedCount</sourceFieldName>
+            <targetFieldName>CurrentMonthDisbCount</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>ProgramCurrentYearDisbursedCount</sourceFieldName>
+            <targetFieldName>CurrentYearDisbCount</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>ProgramPreviousYearDisbursedCount</sourceFieldName>
+            <targetFieldName>PreviousYearDisbCount</targetFieldName>
+        </fields>
+        <fields>
+            <runtimeParameter>false</runtimeParameter>
+            <sourceFieldName>ProgramPreviousMonthDisbursedCount</sourceFieldName>
+            <targetFieldName>PreviousMonthDisbCount</targetFieldName>
+        </fields>
+        <isChangedRow>false</isChangedRow>
+        <label>Update Programs</label>
+        <name>UpdatePrograms</name>
+        <operationType>Update</operationType>
+        <sourceName>CalculateTotalDisbursedBenefitsByProgramId</sourceName>
+        <storageType>sObject</storageType>
+        <targetObjectName>Program</targetObjectName>
+        <writebackSequence>1</writebackSequence>
+        <writebackUser>005dN000002IjK6QAK</writebackUser>
+    </writebacks>
+</BatchCalcJobDefinition>

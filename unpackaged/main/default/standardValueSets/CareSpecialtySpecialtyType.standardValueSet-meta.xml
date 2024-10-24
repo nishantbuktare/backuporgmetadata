@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Food and Nutrition</fullName>
+        <default>false</default>
+        <label>Food and Nutrition</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Housing and Maintenance</fullName>
+        <default>false</default>
+        <label>Housing and Maintenance</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Goods</fullName>
+        <default>false</default>
+        <label>Goods</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Transit</fullName>
+        <default>false</default>
+        <label>Transit</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Health</fullName>
+        <default>false</default>
+        <label>Health</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Money</fullName>
+        <default>false</default>
+        <label>Money</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Care</fullName>
+        <default>false</default>
+        <label>Care</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Education</fullName>
+        <default>false</default>
+        <label>Education</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Employment</fullName>
+        <default>false</default>
+        <label>Employment</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Legal</fullName>
+        <default>false</default>
+        <label>Legal</label>
+    </standardValue>
+</StandardValueSet>

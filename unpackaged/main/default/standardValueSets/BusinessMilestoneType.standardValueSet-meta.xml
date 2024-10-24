@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>GrantAwarded</fullName>
+        <default>false</default>
+        <label>Grant Awarded</label>
+    </standardValue>
+    <standardValue>
+        <fullName>NewExecutiveMember</fullName>
+        <default>false</default>
+        <label>New Executive Member</label>
+    </standardValue>
+    <standardValue>
+        <fullName>PEAKMember</fullName>
+        <default>false</default>
+        <label>PEAK Member</label>
+    </standardValue>
+    <standardValue>
+        <fullName>TAGMember</fullName>
+        <default>false</default>
+        <label>TAG Member</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Cofunder</fullName>
+        <default>false</default>
+        <label>Co-funder</label>
+    </standardValue>
+    <standardValue>
+        <fullName>CharityCheck</fullName>
+        <default>false</default>
+        <label>Charity Check</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </standardValue>
+</StandardValueSet>

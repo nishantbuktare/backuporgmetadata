@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsRemovedFromCohort</fullName>
+    <inlineHelpText>When you select Removed from Cohort, we add the Removal Date. To add a person back into the cohort, deselect this field and remove the information in Removal Date.</inlineHelpText>
+    <trackHistory>false</trackHistory>
+</CustomField>

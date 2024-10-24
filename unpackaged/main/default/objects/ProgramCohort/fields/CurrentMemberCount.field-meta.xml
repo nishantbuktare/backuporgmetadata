@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CurrentMemberCount</fullName>
+    <inlineHelpText>Members who are removed from the cohort aren&#39;t included in this count.</inlineHelpText>
+    <trackHistory>false</trackHistory>
+</CustomField>

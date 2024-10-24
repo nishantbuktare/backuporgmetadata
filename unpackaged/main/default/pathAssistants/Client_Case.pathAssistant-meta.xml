@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Case</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>Client Case</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;In this step, please gather all required documents and upload into this record. You will also need to conduct an initial Assessment to help identify any additional programs or services your client would need. &lt;/p&gt;</info>
+        <picklistValueName>Intake</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>ContactPhone</fieldNames>
+        <fieldNames>ContactEmail</fieldNames>
+        <fieldNames>Language</fieldNames>
+        <info>&lt;p&gt;Please validate you have gathered current contact information.&lt;/p&gt;</info>
+        <picklistValueName>New</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>__MASTER__</recordTypeName>
+</PathAssistant>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Provider Org</fullName>
+        <default>false</default>
+        <label>Provider Org</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Provider Employee</fullName>
+        <default>false</default>
+        <label>Provider Employee</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Individual Provider</fullName>
+        <default>false</default>
+        <label>Individual Provider</label>
+    </standardValue>
+</StandardValueSet>

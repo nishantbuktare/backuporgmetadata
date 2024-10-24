@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Hospital</fullName>
+        <default>false</default>
+        <label>Hospital</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Onsite Service Provider</fullName>
+        <default>false</default>
+        <label>Onsite Service Provider</label>
+    </standardValue>
+    <standardValue>
+        <fullName>At Home Service Provider</fullName>
+        <default>false</default>
+        <label>At Home Service Provider</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Virtual Service Provider</fullName>
+        <default>false</default>
+        <label>Virtual Service Provider</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Transportation Service Provider</fullName>
+        <default>false</default>
+        <label>Transportation Service Provider</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Medical Doctor</fullName>
+        <default>false</default>
+        <label>Medical Doctor</label>
+    </standardValue>
+</StandardValueSet>
