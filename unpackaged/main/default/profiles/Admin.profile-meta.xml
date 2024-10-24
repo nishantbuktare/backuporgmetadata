@@ -9935,6 +9935,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>
+        <tab>TestObject__c</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
         <tab>omnistudio__DataPacks</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
